@@ -1,0 +1,26 @@
+### get all blogs
+GET http://localhost:3000/api/blogs
+###
+
+
+### get blog by slug
+GET http://localhost:3000/api/blogs/test-blog-2024-11-13T19-34-35
+###
+
+
+### post new blog
+POST http://localhost:3000/api/blogs HTTP/1.1
+Content-Type: application/json
+
+{
+    "title":"test blog",
+		"tags":["test tag", "new tag"],
+		"categories":["cat1", "cat2"],
+		"paragraphs":[
+			{
+				"paragraphType":"paragraph",
+				"paragraphHeading":"time stamp blog",
+				"paragraphContent":"this is my new para graph test"
+			}
+		]
+}
