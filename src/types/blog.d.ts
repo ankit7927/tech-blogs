@@ -6,15 +6,9 @@ type ParagraphPost = {
 
 type BlogPost = {
 	title: string;
-	subTitle?: string;
+	subtitle?: string;
 	thumbnail?: string;
 	tags?: string[];
 	categories?: string[];
 	paragraphs: ParagraphPost[];
-};
-
-type ApiResponse = {
-	success: boolean;
-	message: string;
-	data?: unknown;
 };
