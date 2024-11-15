@@ -1,9 +1,10 @@
+import { Blog } from "@/models/blog/blog.model";
 import blogService from "@/services/blog.service";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
 	req: NextRequest,
-): Promise<NextResponse<ApiResponse>> {
+): Promise<NextResponse<ApiResponse<string>>> {
 	const data: BlogPost = await req.json();
 
 	try {
@@ -35,7 +36,7 @@ export async function POST(
 
 export async function GET(
 	req: NextRequest,
-): Promise<NextResponse<ApiResponse>> {
+): Promise<NextResponse<ApiResponse<Blog[]>>> {
 	const url = new URL(req.url);
 
 	const limit = url.searchParams.get("limit") || "10";

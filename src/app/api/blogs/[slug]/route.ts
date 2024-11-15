@@ -1,5 +1,4 @@
 import dbconnect from "@/configs/database.config";
-import blogModel from "@/models/blog.model";
 import blogService from "@/services/blog.service";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -19,6 +18,7 @@ export async function GET(req: NextRequest, { params }: Params) {
 		});
 	try {
 		const result = await blogService.getBlogBySlug(slug);
+		if (!result) throw new Error("Blog not found");
 		return NextResponse.json({
 			success: true,
 			message: "featched blog successfully",

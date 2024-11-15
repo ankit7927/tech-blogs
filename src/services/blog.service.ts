@@ -1,14 +1,14 @@
 import dbconnect from "@/configs/database.config";
-import blogModel from "@/models/blog/blog.model";
+import blogModel, { Blog } from "@/models/blog/blog.model";
 
 const blogService = {
-	createBlog: async (data: BlogPost) => {
+	createBlog: async (data: BlogPost): Promise<string> => {
 		await dbconnect();
 		const newPost = await blogModel.create(data);
-		return newPost.id;
+		return newPost._id.toString();
 	},
 
-	getAllPost: async (limit: string, page: string) => {
+	getAllPost: async (limit: string, page: string): Promise<Blog[]> => {
 		await dbconnect();
 		return await blogModel
 			.find({})
@@ -19,12 +19,16 @@ const blogService = {
 			.exec();
 	},
 
-	getBlogBySlug: async (slug: string) => {
+	getBlogBySlug: async (slug: string): Promise<Blog | null> => {
 		await dbconnect();
 		return await blogModel.findOne({ slug }).lean().exec();
 	},
 
-	getUserBlogs: async (userId: string, limit: string, page: string) => {
+	getUserBlogs: async (
+		userId: string,
+		limit: string,
+		page: string,
+	): Promise<Blog[]> => {
 		await dbconnect();
 		return await blogModel
 			.find({ userId })
@@ -36,7 +40,7 @@ const blogService = {
 	},
 
 	// private
-	updateBlog: async (blogId: string, data: BlogPost) => {
+	updateBlog: async (blogId: string, data: BlogPost): Promise<Blog | null> => {
 		await dbconnect();
 		return await blogModel.findByIdAndUpdate({ _id: blogId }, data, {
 			new: true,
