@@ -16,13 +16,7 @@ async function dbconnect() {
 	if (!connString || !mongoUser || !mongoPass)
 		throw new Error("mongo connection string is not defined");
 	try {
-		const db = await mongoose.connect(connString, {
-			auth: {
-				username: mongoUser,
-				password: mongoPass,
-			},
-			authSource: "admin",
-		});
+		const db = await mongoose.connect(connString);
 		connectionObject.isConnected = db.connections[0].readyState;
 	} catch (error) {
 		console.error("MongoDB Atlas connection failed:", error);

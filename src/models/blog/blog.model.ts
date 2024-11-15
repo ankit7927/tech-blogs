@@ -3,12 +3,17 @@ import paragraphSchema from "./paragraph.schema";
 
 const blogSchema = new Schema(
 	{
+		userId: {
+			type: Schema.Types.ObjectId,
+			required: true,
+			ref: "User",
+		},
 		thumbnail: String,
 		title: {
 			type: String,
 			required: true,
 		},
-		subTitle: String,
+		subtitle: String,
 		slug: String,
 		authors: [
 			{
